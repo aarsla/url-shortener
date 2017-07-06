@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Index</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/css/shortener.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="site-wrapper">
+
+		<div class="site-wrapper-inner">
+
+			<div class="cover-container">
+
+				<div th:include="header :: nav"></div>
+
+				<div class="inner cover">
+
+					<h3 class="sub-header">Registered accounts</h3>
+					<div class="table-responsive">
+
+						<table th:if="${not #lists.isEmpty(accounts)}"
+							class="table table-striped">
+							<tr>
+								<th>Account</th>
+								<th>URLs Count</th>
+								<th>Total Visits</th>
+							</tr>
+							<tr th:each="account : ${accounts}">
+								<td th:text="${account.accountId}">AccountID</td>
+								<td th:text="${#lists.size(account.urls)}">Urls</td>
+								<td><span th:if="${not #lists.isEmpty(account.urls)}"
+									th:text="${accountRepo.getTotalVisits(account)}">Total
+										visits</span></td>
+							</tr>
+						</table>
+					</div>
+
+					<h3 class="sub-header">Registered links</h3>
+					<div class="table-responsive">
+
+						<table th:if="${not #lists.isEmpty(urls)}"
+							class="table table-striped">
+							<tr>
+								<th>Account</th>
+								<th>Original URL</th>
+								<th>Short URL</th>
+								<th>Redirect Type</th>
+								<th>#Visits</th>
+							</tr>
+							<tr th:each="url : ${urls}">
+								<td th:text="${url.account.accountId}">AccountID</td>
+								<td th:text="${url.url}">Original URL</td>
+								<td><a th:href="${url.shortcode}" target="_blank"><span
+										th:text="${url.shortcode}">Short URL</span></a></td>
+								<td th:text="${url.redirectType}">#</td>
+								<td th:text="${url.visits}">#</td>
+							</tr>
+						</table>
+
+					</div>
+
+					<div th:include="footer :: copy"></div>
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

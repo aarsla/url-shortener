@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Help</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/css/shortener.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="site-wrapper">
+
+		<div class="site-wrapper-inner">
+
+			<div class="cover-container">
+
+				<div th:include="header :: nav"></div>
+
+				<div class="inner cover">
+
+					<h3 class="sub-header">Installation and running</h3>
+					<div class="bs-callout bs-callout-info">
+						<h4>Start application</h4>
+						<p>java -jar shortener-0.1.0.jar</p>
+						<h4>Open application in browser</h4>
+						<p>http://localhost:8080</p>
+					</div>
+
+					<h3 class="sub-header">Application interaction</h3>
+					<div class="bs-callout bs-callout-info">
+						<h4>Resource creation</h4>
+						<p>Create resources (accounts, shortcodes) using
+							application/json requests from any of the standard REST clients.</p>
+						<h4>Redirection</h4>
+						<p>Visit any of created shortlinks for redirection to original
+							registered urls.</p>
+						<h4>Statistics</h4>
+						<p>View documentation and generated accounts/shortcodes/stats
+							in your favorite browser.</p>
+						<h4>Recommended REST Clients</h4>
+						<ul>
+							<li>Rest Shell - <a target="_blank"
+								href="https://github.com/spring-projects/rest-shell">https://github.com/spring-projects/rest-shell</a></li>
+							<li>Cocoa Rest Client - <a target="_blank"
+								href="http://mmattozzi.github.io/cocoa-rest-client">http://mmattozzi.github.io/cocoa-rest-client</a></li>
+							<li>Rest Client - <a target="_blank"
+								href="http://code.google.com/p/rest-client">http://code.google.com/p/rest-client</a></li>
+						</ul>
+					</div>
+
+					<h3>Quickstart</h3>
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<tr>
+								<th>URI</th>
+								<th>Example</th>
+								<th>HTTP Method</th>
+								<th>Authentication</th>
+							</tr>
+							<tr>
+							</tr>
+							<tr>
+								<td colspan="4">1. Register new account</td>
+							</tr>
+							<tr>
+								<td><h4>/account</h4></td>
+								<td><input type="text" class="form-control"
+									value='{ "accountId": "myUserName" }' /></td>
+								<td>POST</td>
+								<td><span class="glyphicon glyphicon-remove-circle"></span>
+									Not Required</td>
+							</tr>
+							<tr>
+								<td colspan="4">2. Register new url</td>
+							</tr>
+							<tr>
+								<td><h4>/register</h4></td>
+								<td><input type="text" class="form-control"
+									value='{ url: "http://www.google.com", redirectType: 301 }' />
+								</td>
+								<td>POST</td>
+								<td><span class="glyphicon glyphicon-ok-circle"></span>
+									Basic</td>
+							</tr>
+							<tr>
+								<td colspan="4">3. Redirect from shortcode</td>
+							</tr>
+							<tr>
+								<td><h4>/{shortUrl}</h4></td>
+								<td><h4><a th:href="@{/9sOBn}" target="_blank">9sOBn</a></h4></td>
+								<td>GET</td>
+								<td><span class="glyphicon glyphicon-remove-circle"></span>
+									Not Required</td>
+							</tr>
+							<tr>
+								<td colspan="4">4. View statistics</td>
+							</tr>
+							<tr>
+								<td><h4>/statistic/{accountId}</h4></td>
+								<td><input type="text" class="form-control"
+									value='http://username:password@localhost:8080/statistic/username' /></td>
+								<td>GET</td>
+								<td><span class="glyphicon glyphicon-ok-circle"></span>
+									Basic</td>
+							</tr>
+						</table>
+					</div>
+
+					<h3 class="sub-header">API</h3>
+					<div class="bs-callout bs-callout-warning">
+						<h4>
+							<span class="glyphicon glyphicon-cog"></span> Registering new
+							account
+						</h4>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<tr>
+								<td>HTTP Method</td>
+								<td>POST</td>
+							</tr>
+							<tr>
+								<td>URI</td>
+								<td>/account</td>
+							</tr>
+							<tr>
+								<td>Auth</td>
+								<td><span class="glyphicon glyphicon-remove-circle"></span>
+									Not required</td>
+							</tr>
+							<tr>
+								<td>Required arguments</td>
+								<td>accountId</td>
+							</tr>
+							<tr>
+								<td>Response type</td>
+								<td>application/json</td>
+							</tr>
+							<tr>
+								<td>Response example</td>
+								<td><code class="javascript">{ success : true,
+										description : "Your account is now active", password:
+										"xC345Fc0" }</code></td>
+							</tr>
+							<tr>
+								<td>Response example</td>
+								<td><code class="javascript">{ success : false,
+										description : "Account already exists" }</code></td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="bs-callout bs-callout-warning">
+						<h4>
+							<span class="glyphicon glyphicon-cog"></span> Registering new
+							short url
+						</h4>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<tr>
+								<td>HTTP Method</td>
+								<td>POST</td>
+							</tr>
+							<tr>
+								<td>URI</td>
+								<td>/register</td>
+							</tr>
+							<tr>
+								<td>Auth</td>
+								<td><span class="glyphicon glyphicon-ok-circle"></span>
+									Required, Basic</td>
+							</tr>
+							<tr>
+								<td>Request headers</td>
+								<td>Basic authentication</td>
+							</tr>
+							<tr>
+								<td>Required arguments</td>
+								<td>url</td>
+							</tr>
+							<tr>
+								<td>Optional arguments</td>
+								<td>redirectType (defaults to 302, unless 301 is
+									specifically requested)</td>
+							</tr>
+							<tr>
+								<td>Response type</td>
+								<td>application/json</td>
+							</tr>
+							<tr>
+								<td>Response example</td>
+								<td>{"shortcode" : "L1RHw"}</td>
+							</tr>
+							<tr>
+								<td>Response example</td>
+								<td><code class="javascript">{ shortcode : "JwWmz",
+										description : "ShortUrl already exists" }</code></td>
+							</tr>
+							<tr>
+								<td>Response example</td>
+								<td><code class="javascript">{ description :
+										"Malformed URL" }</code></td>
+							</tr>
+						</table>
+					</div>
+
+					<div class="bs-callout bs-callout-warning">
+						<h4>
+							<span class="glyphicon glyphicon-cog"></span> Account statistics
+						</h4>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<tr>
+								<td>HTTP Method</td>
+								<td>GET</td>
+							</tr>
+							<tr>
+								<td>URI</td>
+								<td>/statistic/{accountId}</td>
+							</tr>
+							<tr>
+								<td>Auth</td>
+								<td><span class="glyphicon glyphicon-ok-circle"></span>
+									Required, Basic</td>
+							</tr>
+							<tr>
+								<td>Request headers</td>
+								<td>Basic authentication</td>
+							</tr>
+							<tr>
+								<td>Required arguments</td>
+								<td>accountId</td>
+							</tr>
+							<tr>
+								<td>Response type</td>
+								<td>application/json</td>
+							</tr>
+							<tr>
+								<td>Response example</td>
+								<td><code class="javascript">{ "http://www.urlone.com"
+										: 8, "http://www.urltwo.com" : 3, "http://www.urlthree.com" : 2
+										}</code></td>
+							</tr>
+						</table>
+					</div>
+
+					<div th:include="footer :: copy"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
